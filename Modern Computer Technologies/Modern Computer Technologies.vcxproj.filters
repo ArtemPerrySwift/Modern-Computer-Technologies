@@ -72,6 +72,9 @@
     <ClCompile Include="MatrixVectorOperations.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="GausseSLAE_Solver.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Area.h">
@@ -132,6 +135,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="MatrixVectorOperations.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="GausseSLAE_Solver.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

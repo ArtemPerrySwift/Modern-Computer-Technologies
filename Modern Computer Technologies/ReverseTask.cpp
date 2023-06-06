@@ -1,12 +1,26 @@
 #include "ReverseTask.h"
+#include "MatrixVectorOperations.h"
+#include "GausseSLAE_Solver.h"
 
 ReverseTask::ReverseTask(double alpha)
 {
-
+	setAlpha(alpha);
 }
+
 void ReverseTask::countSolution(const std::vector<Reciver>& _recivers, MeshInfo& mesh) const
 {
+	std::vector<std::vector<double>> L;
+	std::vector<std::vector<double>> LLt;
+	std::vector<double> S;
+	std::vector<double> b;
 
+	calcL(L, _recivers, mesh);
+	Multiply_LLt(L, LLt);
+	calcS(S, _recivers);
+	MultiplyMatrixVector(L, S, b);
+	addAlpha(LLt);
+	Gauss(LLt, b);
+	fillElementsWithAnswer(mesh, b);
 }
 void ReverseTask::setAlpha(double alpha)
 {
@@ -20,7 +34,7 @@ double ReverseTask::getAlpha() const
 	return _alpha;
 }
 
-void ReverseTask::calcL(std::vector<std::vector<double>>& L, const std::vector<Reciver>& _recivers, MeshInfo& mesh)
+void ReverseTask::calcL(std::vector<std::vector<double>>& L, const std::vector<Reciver>& _recivers, MeshInfo& mesh) const
 {
 	const std::vector<MagnetElement>& magneticElements = mesh.getMagneticElements();
 	int rowCount, columnCount;
@@ -53,7 +67,7 @@ void ReverseTask::calcL(std::vector<std::vector<double>>& L, const std::vector<R
 	}
 }
 
-void ReverseTask::calcS(std::vector<double> S, const std::vector<Reciver>& _recivers)
+void ReverseTask::calcS(std::vector<double>& S, const std::vector<Reciver>& _recivers) const
 {
 	S.resize(2 * _recivers.size());
 	for (int iReciver = 0, i = 0; iReciver < _recivers.size(); iReciver++, i += 2)
@@ -63,8 +77,18 @@ void ReverseTask::calcS(std::vector<double> S, const std::vector<Reciver>& _reci
 	}
 }
 
-void ReverseTask::addAlpha(std::vector<std::vector<double>>& Matrix)
+void ReverseTask::addAlpha(std::vector<std::vector<double>>& Matrix) const
 {
 	for (int i = 0; i < Matrix.size(); i++)
 		Matrix[i][i] += _alpha;
+}
+
+void ReverseTask::fillElementsWithAnswer(MeshInfo& mesh, const std::vector<double>& ans) const
+{
+	int elemntsNumber = mesh.getMagneticElements().size();
+	for (int iElement = 0, i = 0; iElement < elemntsNumber; iElement++, i += 2)
+	{
+		mesh.change_px(ans[i    ], iElement);
+		mesh.change_pz(ans[i + 1], iElement);
+	}
 }

@@ -132,6 +132,7 @@
     <ClCompile Include="AreaInfo.cpp" />
     <ClCompile Include="Faces.cpp" />
     <ClCompile Include="FiniteElement.cpp" />
+    <ClCompile Include="GausseSLAE_Solver.cpp" />
     <ClCompile Include="GeomElement.cpp" />
     <ClCompile Include="IntervalForSplit.cpp" />
     <ClCompile Include="IntervalRef.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="DimenshionTemlate.h" />
     <ClInclude Include="Faces.h" />
     <ClInclude Include="FiniteElement.h" />
+    <ClInclude Include="GausseSLAE_Solver.h" />
     <ClInclude Include="GeomElement.h" />
     <ClInclude Include="InputData.h" />
     <ClInclude Include="IntervalForSplit.h" />
