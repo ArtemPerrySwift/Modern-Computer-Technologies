@@ -3,8 +3,9 @@
 #include "MagnetElement.h"
 #include "AreaInfo.h"
 
-class Area : MagnetInfo
+class Area : public MagnetInfo
 {
+private:
 	const SplittedInterval* _intervalX;
 	const SplittedInterval* _intervalZ;
 public:
@@ -13,7 +14,6 @@ public:
 	const SplittedInterval& getIntervalX() const;
 	const SplittedInterval& getIntervalZ() const;
 
-	//std::vector<GeomElement>* getGeometryElements();
 	void getElements(std::vector<MagnetElement>& geometryElements) const;
 	int getElementsCount() const;
 

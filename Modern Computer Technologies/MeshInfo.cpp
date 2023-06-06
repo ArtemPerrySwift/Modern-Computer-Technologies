@@ -1,8 +1,17 @@
 #include "MeshInfo.h"
 #include <algorithm>
-MeshInfo::MeshInfo(libconfig::Config& config) : MeshInfo(getSettingFromConfig(config, "Mesh")) {}
+
+libconfig::Config& prepareConfig(libconfig::Config& config)
+{
+	config.setAutoConvert(true);
+	return config;
+}
+
+MeshInfo::MeshInfo(libconfig::Config& config) : MeshInfo(getSettingFromConfig(prepareConfig(config), "Mesh")) {}
+
 
 MeshInfo::MeshInfo(std::string& configFileName) : MeshInfo(getConfigFromFile(configFileName)) {}
+
 
 void MeshInfo::checkBasePointsArr(std::vector<double>& p, std::string_view pName)
 {
@@ -33,4 +42,5 @@ MeshInfo::MeshInfo(libconfig::Setting& setting)
 	setArrayFromConfigList(intervalSetting, _intervalsXForSplit, "X");
 	setArrayFromConfigList(intervalSetting, _intervalsZForSplit, "Z");
 	setArrayFromConfigList(setting, _areas, "Areas");
+	setVarFromSetting(setting, _I, "I");
 }

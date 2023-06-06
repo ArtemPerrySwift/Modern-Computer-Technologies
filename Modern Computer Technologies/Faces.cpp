@@ -3,6 +3,11 @@
 Rectangle::Rectangle(const IntervalRef& interval1, const IntervalRef& interval2) : _interval1(interval1), _interval2(interval2)
 {}
 
+double Rectangle::getSquare() const
+{
+	return _interval1.getLength() * _interval2.getLength();
+}
+
 FaceXY::FaceXY(const IntervalRef& X, const IntervalRef& Y) : Rectangle(X,Y)
 {}
 

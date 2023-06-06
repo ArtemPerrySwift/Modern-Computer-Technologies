@@ -1,6 +1,14 @@
 #include "MagnetInfo.h"
 #include <exception>
 
+MagnetInfo::MagnetInfo(double pX, double pZ)
+{
+	set_pX(pX);
+	set_pZ(pZ);
+}
+
+MagnetInfo::MagnetInfo() = default;
+
 void MagnetInfo::set_pX(double pX)
 {
 	if (pX < 0)

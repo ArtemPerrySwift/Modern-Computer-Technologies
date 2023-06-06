@@ -1,12 +1,10 @@
 #pragma once
 #include "MagnetInfo.h"
 #include "IntervalRef.h"
+#include "Faces.h"
 
-class MagnetElement : public MagnetInfo
+class MagnetElement : public MagnetInfo, public FaceXZ
 {
-public:
-	const IntervalRef& _intervalX;
-	const IntervalRef& _intervalZ;
 	MagnetElement(const IntervalRef& intervalX, const IntervalRef& intervalZ, double pX, double pZ);
 };
 

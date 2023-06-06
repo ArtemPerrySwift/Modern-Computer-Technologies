@@ -6,6 +6,7 @@ public:
 	const IntervalRef& _interval1;
 	const IntervalRef& _interval2;
 	Rectangle(const IntervalRef& X, const IntervalRef& Y);
+	double getSquare() const;
 };
 
 class FaceXY : public Rectangle
