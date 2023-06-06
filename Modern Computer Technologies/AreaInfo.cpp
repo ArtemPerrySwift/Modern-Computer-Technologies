@@ -67,22 +67,6 @@ void AreaInfo::setIntervalNumZ(int intervalNumZ)
 	_intervalNumZ = intervalNumZ;
 }
 
-void AreaInfo::set_pX(double pX)
-{
-	if (pX < 0)
-		throw std::exception("X Magnetization for Area cannot be less than 0");
-
-	_pX = pX;
-}
-
-void AreaInfo::set_pZ(double pZ)
-{
-	if (pZ < 0)
-		throw std::exception("X Magnetization for Area cannot be less than 0");
-
-	_pZ = pZ;
-}
-
 int AreaInfo::getIntervalNumX() const
 {
 	return _intervalNumX;
@@ -90,12 +74,4 @@ int AreaInfo::getIntervalNumX() const
 int AreaInfo::getIntervalNumZ() const
 {
 	return _intervalNumZ;
-}
-int AreaInfo::get_pX() const
-{
-	return _pX;
-}
-int AreaInfo::get_pZ() const
-{
-	return _pZ;
 }

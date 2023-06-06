@@ -4,7 +4,9 @@
 
 class MagnetElement : public MagnetInfo
 {
-	const IntervalRef& intervalX;
-	const IntervalRef& intervalY;
+public:
+	const IntervalRef& _intervalX;
+	const IntervalRef& _intervalZ;
+	MagnetElement(const IntervalRef& intervalX, const IntervalRef& intervalZ, double pX, double pZ);
 };
 
