@@ -3,28 +3,12 @@
 #include <string>
 IntervalForSplit::IntervalForSplit(int p1, int p2, SplitOptions& splitOptions)
 {
-	_splitOptions = new SplitOptions();
 	setInterval(p1, p2, splitOptions);
 }
 IntervalForSplit::IntervalForSplit()
 {
 	_p1 = 0;
 	_p2 = 1;
-	_splitOptions = new SplitOptions();
-}
-
-IntervalForSplit::IntervalForSplit(const IntervalForSplit& interval)
-{
-	_p1 = interval._p1;
-	_p2 = interval._p2;
-	_splitOptions = new SplitOptions(*interval._splitOptions);
-}
-
-IntervalForSplit::IntervalForSplit(const IntervalForSplit&& interval)
-{
-	_p1 = interval._p1;
-	_p2 = interval._p2;
-	_splitOptions = interval._splitOptions;
 }
 
 IntervalForSplit::IntervalForSplit(std::istream& in)
@@ -44,7 +28,7 @@ IntervalForSplit::IntervalForSplit(std::istream& in)
 		throw new std::exception(errMSG.c_str());
 	}
 
-	_splitOptions = new SplitOptions(in);
+	_splitOptions.readData(in);
 }
 
 IntervalForSplit::IntervalForSplit(libconfig::Setting& setting)
@@ -52,18 +36,6 @@ IntervalForSplit::IntervalForSplit(libconfig::Setting& setting)
 	setInterval(setting);
 }
 
-IntervalForSplit& IntervalForSplit::operator=(const IntervalForSplit& interval)
-{
-	_p1 = interval._p1;
-	_p2 = interval._p2;
-	_splitOptions = new SplitOptions(*interval._splitOptions);
-	return *this;
-}
-
-IntervalForSplit::~IntervalForSplit()
-{
-	delete _splitOptions;
-}
 
 int IntervalForSplit::getFirstPointNum() const
 {
@@ -74,7 +46,7 @@ int IntervalForSplit::getSecondPointNum() const
 	return _p2;
 }
 
-ISplitOptions* IntervalForSplit::getSplitOptions() const
+const SplitOptions& IntervalForSplit::getSplitOptions() const
 {
 	return _splitOptions;
 }
@@ -104,8 +76,7 @@ void IntervalForSplit::setSecondPointNum(int p2)
 
 void IntervalForSplit::setSplitOptions(SplitOptions& splitOptions)
 {
-	delete _splitOptions;
-	_splitOptions = new SplitOptions(splitOptions);
+	_splitOptions = splitOptions;
 }
 
 void IntervalForSplit::setPointsNum(int p1, int p2)
@@ -153,10 +124,9 @@ std::istream& IntervalForSplit::readData(std::istream& in)
 		std::string errMSG = "Cannot read number of second point";
 		throw new std::exception(errMSG.c_str());
 	}
-	SplitOptions* splitOptions = new SplitOptions();
-	in >> *splitOptions;
+	SplitOptions splitOptions;
+	in >> splitOptions;
 	setPointsNum(p1, p2);
-	delete _splitOptions;
 	_splitOptions = splitOptions;
 	return in;
 }

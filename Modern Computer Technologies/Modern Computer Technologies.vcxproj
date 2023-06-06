@@ -139,6 +139,7 @@
     <ClCompile Include="LibconfigDeluxe.cpp" />
     <ClCompile Include="MagnetElement.cpp" />
     <ClCompile Include="MagnetInfo.cpp" />
+    <ClCompile Include="MagnetismDirectTask.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MeshInfo.cpp" />
     <ClCompile Include="SplitOptions.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="LibconfigDeluxe.h" />
     <ClInclude Include="MagnetElement.h" />
     <ClInclude Include="MagnetInfo.h" />
+    <ClInclude Include="MagnetismDirectTask.h" />
     <ClInclude Include="MeshInfo.h" />
     <ClInclude Include="SplitOptions.h" />
     <ClInclude Include="SplittedInterval.h" />

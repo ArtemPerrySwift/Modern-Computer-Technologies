@@ -7,28 +7,24 @@ class IIntervalForSplit
 public:
 	virtual int getFirstPointNum() const = 0;
 	virtual int getSecondPointNum() const = 0;
-	virtual ISplitOptions* getSplitOptions() const = 0;
+	virtual const SplitOptions& getSplitOptions() const = 0;
 };
 
 class IntervalForSplit : public IIntervalForSplit, public InputData
 {
 private:
 	int _p1, _p2;
-	SplitOptions* _splitOptions;
+	SplitOptions _splitOptions;
 public:
 	IntervalForSplit(int p1, int p2, SplitOptions& splitOptions);
 	IntervalForSplit(std::istream& in);
 	IntervalForSplit(libconfig::Setting& setting);
 	IntervalForSplit();
-	IntervalForSplit(const IntervalForSplit& interval);
-	IntervalForSplit(const IntervalForSplit&& interval);
-	~IntervalForSplit();
 
-	IntervalForSplit& operator=(const IntervalForSplit& interval);
 
 	int getFirstPointNum() const override;
 	int getSecondPointNum() const  override;
-	ISplitOptions* getSplitOptions() const override;
+	const SplitOptions& getSplitOptions() const override;
 
 	void setFirstPointNum(int p1);
 	void setSecondPointNum(int p2);
