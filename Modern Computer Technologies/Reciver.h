@@ -1,5 +1,6 @@
 #pragma once
 #include <sstream>
+#include <vector>
 struct Reciver
 {
 	double x;
@@ -15,5 +16,7 @@ struct Reciver
 	double getZ() const;
 	double getBx() const;
 	double getBz() const;
+
+	static void readRecivers(std::vector<Reciver>& recivers, std::string fileName);
 };
 

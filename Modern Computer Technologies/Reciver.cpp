@@ -1,5 +1,5 @@
 #include "Reciver.h"
-
+#include <fstream>
 Reciver::Reciver()
 {
 	x = z = 1;
@@ -45,4 +45,19 @@ double Reciver::getBx() const
 double Reciver::getBz() const
 {
 	return Bz;
+}
+
+void Reciver::readRecivers(std::vector<Reciver>& recivers, std::string fileName)
+{
+	std::ifstream in;
+	in.open(fileName, std::ios::binary);
+	int reciversCount;
+	in.read((char*)&reciversCount, sizeof(reciversCount));
+	if (in.fail())
+		throw std::exception("Cannot read recivers count");
+	if(reciversCount < 0)
+		throw std::exception("Recivers count cannot be less than 0");
+	recivers.reserve(reciversCount);
+	for(int i = 0; i < reciversCount; i++)
+		recivers.emplace_back(in);
 }
