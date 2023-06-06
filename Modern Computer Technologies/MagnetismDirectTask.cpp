@@ -4,11 +4,9 @@ const double PI = 3.14159265358979323846;
 
 MagnetismDirectTask::MagnetismDirectTask(std::string configFileName) : _mesh(configFileName)
 {
-	_mesh.getMagneticElements(_magneticElements);
 }
 MagnetismDirectTask::MagnetismDirectTask(MeshInfo&& mesh) : _mesh(mesh)
 {
-	_mesh.getMagneticElements(_magneticElements);
 }
 
 double MagnetismDirectTask::calcMagneticIndoctionX(double x, double z)
@@ -19,7 +17,8 @@ double MagnetismDirectTask::calcMagneticIndoctionX(double x, double z)
 	double x_, z_;
 	double r2, r3;
 	double buf;
-	for (MagnetElement& elem : _magneticElements)
+	const std::vector<MagnetElement>& _magneticElements = _mesh.getMagneticElements();
+	for (const MagnetElement& elem : _magneticElements)
 	{
 		xMidElem = (elem.getIntervalX().getLeftPoint() + elem.getIntervalX().getRightPoint()) / 2;
 		zMidElem = (elem.getIntervalZ().getLeftPoint() + elem.getIntervalZ().getRightPoint()) / 2;
@@ -42,7 +41,8 @@ double MagnetismDirectTask::calcMagneticIndoctionY(double x, double z)
 	double x_, z_;
 	double r2, r3;
 	double buf;
-	for (MagnetElement& elem : _magneticElements)
+	const std::vector<MagnetElement>& _magneticElements = _mesh.getMagneticElements();
+	for (const MagnetElement& elem : _magneticElements)
 	{
 		xMidElem = (elem.getIntervalX().getLeftPoint() + elem.getIntervalX().getRightPoint()) / 2;
 		zMidElem = (elem.getIntervalZ().getLeftPoint() + elem.getIntervalZ().getRightPoint()) / 2;

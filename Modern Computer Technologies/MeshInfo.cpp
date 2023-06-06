@@ -50,24 +50,23 @@ MeshInfo::MeshInfo(libconfig::Setting& setting)
 	setArrayFromConfigList(intervalSetting, _intervalsXForSplit, "X");
 	setArrayFromConfigList(intervalSetting, _intervalsZForSplit, "Z");
 	setArrayFromConfigList(setting, areasInfo, "Areas");
-
-	for (const AreaInfo& areaInfo : areasInfo)
-		_areas.emplace_back(_intervalsX, _intervalsZ, areaInfo);
-
+	
 	double I;
 	setVarFromSetting(setting, I, "I");
 	setI(I);
 
+
 	splitIntervals(_intervalsX, _intervalsXForSplit, _x);
 	splitIntervals(_intervalsZ, _intervalsZForSplit, _z);
+
+	countMagneticElements(areasInfo);
 }
 
 MeshInfo::MeshInfo(const std::vector<double> _x, const std::vector<double> _z, const std::vector<IntervalForSplit> _intervalsXForSplit, const std::vector<IntervalForSplit> _intervalsZForSplit, double I, const std::vector<AreaInfo> areasInfo)
 {
 	splitIntervals(_intervalsX, _intervalsXForSplit, _x);
 	splitIntervals(_intervalsZ, _intervalsZForSplit, _z);
-	for (const AreaInfo& areaInfo : areasInfo)
-		_areas.emplace_back(_intervalsX, _intervalsZ, areaInfo);
+	countMagneticElements(areasInfo);
 	setI(I);
 }
 
@@ -89,21 +88,28 @@ void MeshInfo::splitIntervals(std::vector<SplittedInterval>& splittedIntervals, 
 		splittedIntervals.emplace_back(points, intervalForSplit);
 	
 }
+void MeshInfo::countMagneticElements(const std::vector<AreaInfo>& areasInfo)
+{
+	std::vector<Area> areas;
+	areas.reserve(areasInfo.size());
 
-void MeshInfo::getMagneticElements(std::vector<MagnetElement>& _magneticElements) const
-{	
-	//std::vector<Area> areas;
-	//areas.reserve(areasInfo.size());
+	for (const AreaInfo& areaInfo : areasInfo)
+		areas.emplace_back(_intervalsX, _intervalsZ, areaInfo);
 
 	int elementsCount = 0;
-	for (const Area& area : _areas)
+	for (const Area& area : areas)
 		elementsCount += area.getElementsCount();
-	
+
 	_magneticElements.clear();
 	_magneticElements.reserve(elementsCount);
 
-	for (const Area& area : _areas)
+	for (const Area& area : areas)
 		area.getElements(_magneticElements);
+}
+
+const std::vector<MagnetElement>& MeshInfo::getMagneticElements() const
+{	
+	return _magneticElements;
 }
 
 const std::vector<SplittedInterval>& MeshInfo::getIntervalsX() const
@@ -113,4 +119,21 @@ const std::vector<SplittedInterval>& MeshInfo::getIntervalsX() const
 const std::vector<SplittedInterval>& MeshInfo::getIntervalsZ() const
 {
 	return _intervalsZ;
+}
+
+void MeshInfo::change_px(double px, int elementNum)
+{
+	if (elementNum < 0)
+		throw std::exception("Magnetic element num for changing px cannot be less than 0");
+	if (elementNum >= _magneticElements.size())
+		throw std::exception("Magnetic element num for changing px cannot be larger than magnetic elements count");
+	_magneticElements[elementNum].set_pX(px);
+}
+void MeshInfo::change_pz(double pz, int elementNum)
+{
+	if (elementNum < 0)
+		throw std::exception("Magnetic element num for changing pz cannot be less than 0");
+	if (elementNum >= _magneticElements.size())
+		throw std::exception("Magnetic element num for changing pz cannot be larger than magnetic elements count");
+	_magneticElements[elementNum].set_pZ(pz);
 }

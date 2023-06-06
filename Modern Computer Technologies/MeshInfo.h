@@ -8,12 +8,12 @@ class MeshInfo
 {
 	std::vector<SplittedInterval> _intervalsX;
 	std::vector<SplittedInterval> _intervalsZ;
-	std::vector<Area> _areas;
-
+	
+	std::vector<MagnetElement> _magneticElements;
 	double _I;
 	void checkBasePointsArr(std::vector<double>& p, std::string_view pName);
 	void splitIntervals(std::vector<SplittedInterval>& splittedIntervals, const std::vector<IntervalForSplit>& intervalsForSplit, const std::vector<double>& points);
-	
+	void countMagneticElements(const std::vector<AreaInfo>& _area);
 public:
 	MeshInfo(libconfig::Config& config);
 	MeshInfo(std::string& configFileName);
@@ -22,8 +22,11 @@ public:
 
 	const std::vector<SplittedInterval>& getIntervalsX() const;
 	const std::vector<SplittedInterval>& getIntervalsZ() const;
-	void getMagneticElements(std::vector<MagnetElement>& _magneticElements) const;
+	const std::vector<MagnetElement>& getMagneticElements() const;
 	double getI() const;
 	void setI(double I);
+
+	void change_px(double px, int elementNum);
+	void change_pz(double pz, int elementNum);
 };
 
