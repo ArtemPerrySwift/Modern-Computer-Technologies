@@ -14,7 +14,7 @@ void MeshInfo::checkBasePointsArr(std::vector<double>& p, std::string_view pName
 		throw std::exception(exeptionMSG.c_str());
 	}
 		
-	if (std::adjacent_find(_y.begin(), _y.end()) != _y.end())
+	if (std::adjacent_find(p.begin(), p.end()) != p.end())
 	{
 		std::string exeptionMSG = "Array for ";
 		exeptionMSG.append(pName.data());
@@ -27,13 +27,10 @@ MeshInfo::MeshInfo(libconfig::Setting& setting)
 	libconfig::Setting& basePointsSetting = getSubSetting(setting, "BasePoints");
 	setArrayFromConfigArray(basePointsSetting, _x, "X");
 	checkBasePointsArr(_x, "X");
-	setArrayFromConfigArray(basePointsSetting, _y, "Y");
-	checkBasePointsArr(_y, "Y");
 	setArrayFromConfigArray(basePointsSetting, _z, "Z");
 	checkBasePointsArr(_z, "Z");
 	libconfig::Setting& intervalSetting = getSubSetting(setting, "Intervals");
 	setArrayFromConfigList(intervalSetting, _intervalsXForSplit, "X");
-	setArrayFromConfigList(intervalSetting, _intervalsYForSplit, "Y");
 	setArrayFromConfigList(intervalSetting, _intervalsZForSplit, "Z");
 	setArrayFromConfigList(setting, _areas, "Areas");
 }

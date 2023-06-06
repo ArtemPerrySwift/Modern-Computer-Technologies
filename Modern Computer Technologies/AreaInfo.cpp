@@ -1,31 +1,52 @@
 #include "AreaInfo.h"
 
-AreaInfo::AreaInfo(const int intervalNumX, const int intervalNumZ, const double pX, const double pZ) : _intervalNumX(intervalNumX), _intervalNumZ(intervalNumZ), _pX(pX), _pZ(pZ) {}
+AreaInfo::AreaInfo(const int intervalNumX, const int intervalNumZ, const double pX, const double pZ)
+{
+	setIntervalNumX(intervalNumX);
+	setIntervalNumZ(intervalNumZ);
+	set_pX(pX);
+	set_pZ(pZ);
+}
 
 AreaInfo::AreaInfo(std::istream& in)
 {
-	in >> _intervalNumX;
+	int intervalNumX, intervalNumZ;
+	double pX, pZ;
+
+	in >> intervalNumX;
 	if (in.fail())
 		throw std::exception("Cannot read interval number for X axes");
-	in >> _intervalNumZ;
+	in >> intervalNumZ;
 	if (in.fail())
 		throw std::exception("Cannot read interval number for Z axes");
-	in >> _pX;
+	in >> pX;
 	if (in.fail())
 		throw std::exception("Cannot read pX value");
-	in >> _pZ;
+	in >> pZ;
 	if (in.fail())
 		throw std::exception("Cannot read pZ value");
 
+	setIntervalNumX(intervalNumX);
+	setIntervalNumZ(intervalNumZ);
+	set_pX(pX);
+	set_pZ(pZ);
 }
 
 
 AreaInfo::AreaInfo(libconfig::Setting& setting)
 {
-	setVarFromSetting(setting, _intervalNumX, "IntervalXNum");
-	setVarFromSetting(setting, _intervalNumZ, "IntervalZNum");
-	setVarFromSetting(setting, _pX, "pX");
-	setVarFromSetting(setting, _pZ, "pZ");
+	int intervalNumX, intervalNumZ;
+	double pX, pZ;
+
+	setVarFromSetting(setting, intervalNumX, "IntervalXNum");
+	setVarFromSetting(setting, intervalNumZ, "IntervalZNum");
+	setVarFromSetting(setting, pX, "pX");
+	setVarFromSetting(setting, pZ, "pZ");
+
+	setIntervalNumX(intervalNumX);
+	setIntervalNumZ(intervalNumZ);
+	set_pX(pX);
+	set_pZ(pZ);
 }
 
 

@@ -2,16 +2,17 @@
 #include <array>
 #include <sstream>
 #include "LibconfigDeluxe.h"
+#include "MagnetInfo.h"
 
 typedef unsigned char BoundCount_t;
 
-struct AreaInfo
+class AreaInfo : public MagnetInfo
 {
-public:
+private:
 	int _intervalNumX;
 	int _intervalNumZ;
-	double _pX;
-	double _pZ;
+
+public:
 	AreaInfo() = default;
 
 	AreaInfo(const int _intervalNumX, const int _intervalNumZ, const double pX, const double pZ);
@@ -20,5 +21,10 @@ public:
 
 	AreaInfo(libconfig::Setting& setting);
 
+	void setIntervalNumX(int intervalNumX);
+	void setIntervalNumZ(int intervalNumY);
+
+	int getIntervalNumX() const;
+	int getIntervalNumZ() const;
 };
 

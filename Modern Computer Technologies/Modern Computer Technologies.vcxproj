@@ -129,9 +129,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Area.cpp" />
-    <ClCompile Include="Area1D.cpp" />
-    <ClCompile Include="Area1D_info.cpp" />
-    <ClCompile Include="Area1D_InputInfo.cpp" />
     <ClCompile Include="AreaInfo.cpp" />
     <ClCompile Include="Faces.cpp" />
     <ClCompile Include="FiniteElement.cpp" />
@@ -140,6 +137,8 @@
     <ClCompile Include="IntervalRef.cpp" />
     <ClCompile Include="IntervalXYZ.cpp" />
     <ClCompile Include="LibconfigDeluxe.cpp" />
+    <ClCompile Include="MagnetElement.cpp" />
+    <ClCompile Include="MagnetInfo.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MeshInfo.cpp" />
     <ClCompile Include="SplitOptions.cpp" />
@@ -147,9 +146,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Area.h" />
-    <ClInclude Include="Area1D.h" />
-    <ClInclude Include="Area1D_info.h" />
-    <ClInclude Include="Area1D_InputInfo.h" />
     <ClInclude Include="AreaInfo.h" />
     <ClInclude Include="DimenshionTemlate.h" />
     <ClInclude Include="Faces.h" />
@@ -160,6 +156,8 @@
     <ClInclude Include="IntervalRef.h" />
     <ClInclude Include="IntervalsXYZ.h" />
     <ClInclude Include="LibconfigDeluxe.h" />
+    <ClInclude Include="MagnetElement.h" />
+    <ClInclude Include="MagnetInfo.h" />
     <ClInclude Include="MeshInfo.h" />
     <ClInclude Include="SplitOptions.h" />
     <ClInclude Include="SplittedInterval.h" />
