@@ -1,9 +1,9 @@
 #pragma once
 #include "SplittedInterval.h"
-#include "Faces.h"
+#include "MagnetElement.h"
 #include "AreaInfo.h"
 
-class Area
+class Area : MagnetInfo
 {
 	const SplittedInterval* _intervalX;
 	const SplittedInterval* _intervalZ;
@@ -14,7 +14,7 @@ public:
 	const SplittedInterval& getIntervalZ() const;
 
 	//std::vector<GeomElement>* getGeometryElements();
-	void getElements(std::vector<Rectangle>& geometryElements) const;
+	void getElements(std::vector<MagnetElement>& geometryElements) const;
 	int getElementsCount() const;
 
 };
