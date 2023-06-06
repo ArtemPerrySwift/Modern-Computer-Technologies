@@ -3,12 +3,11 @@
 class MagnetismDirectTask
 {
 private:
-	MeshInfo _mesh;
-	std::vector<MagnetElement> _magneticElements;
+	const MeshInfo* _mesh;
 public:
-	MagnetismDirectTask(std::string configFileName);
-	MagnetismDirectTask(MeshInfo&& mesh);
-	double calcMagneticIndoctionX(double x, double z);
-	double calcMagneticIndoctionY(double x, double z);
+	MagnetismDirectTask(const MeshInfo& mesh);
+	void setMesh(const MeshInfo& mesh);
+	double calcMagneticIndoctionX(double x, double z) const;
+	double calcMagneticIndoctionY(double x, double z) const;
 };
 

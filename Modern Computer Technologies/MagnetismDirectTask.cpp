@@ -2,14 +2,17 @@
 
 const double PI = 3.14159265358979323846;
 
-MagnetismDirectTask::MagnetismDirectTask(std::string configFileName) : _mesh(configFileName)
+MagnetismDirectTask::MagnetismDirectTask(const MeshInfo& mesh)
 {
-}
-MagnetismDirectTask::MagnetismDirectTask(MeshInfo&& mesh) : _mesh(mesh)
-{
+	setMesh(mesh);
 }
 
-double MagnetismDirectTask::calcMagneticIndoctionX(double x, double z)
+void MagnetismDirectTask::setMesh(const MeshInfo& mesh)
+{
+	_mesh = &mesh;
+}
+
+double MagnetismDirectTask::calcMagneticIndoctionX(double x, double z) const
 {
 	double bx = 0;
 	double xMidElem, zMidElem;
@@ -17,7 +20,7 @@ double MagnetismDirectTask::calcMagneticIndoctionX(double x, double z)
 	double x_, z_;
 	double r2, r3;
 	double buf;
-	const std::vector<MagnetElement>& _magneticElements = _mesh.getMagneticElements();
+	const std::vector<MagnetElement>& _magneticElements = _mesh->getMagneticElements();
 	for (const MagnetElement& elem : _magneticElements)
 	{
 		xMidElem = (elem.getIntervalX().getLeftPoint() + elem.getIntervalX().getRightPoint()) / 2;
@@ -29,11 +32,11 @@ double MagnetismDirectTask::calcMagneticIndoctionX(double x, double z)
 		coefX = 3 * x_ * x_ / r2 - 1;
 		coefZ = 3 * x_ * z_ / r2;
 		buf = elem.get_pX() * coefX + elem.get_pZ() * coefZ;
-		bx += elem.getSquare() * _mesh.getI() / 4 / PI / r3 * buf;
+		bx += elem.getSquare() * _mesh->getI() / 4 / PI / r3 * buf;
 	}
 }
 
-double MagnetismDirectTask::calcMagneticIndoctionY(double x, double z)
+double MagnetismDirectTask::calcMagneticIndoctionY(double x, double z) const
 {
 	double bx = 0;
 	double xMidElem, zMidElem;
@@ -41,7 +44,7 @@ double MagnetismDirectTask::calcMagneticIndoctionY(double x, double z)
 	double x_, z_;
 	double r2, r3;
 	double buf;
-	const std::vector<MagnetElement>& _magneticElements = _mesh.getMagneticElements();
+	const std::vector<MagnetElement>& _magneticElements = _mesh->getMagneticElements();
 	for (const MagnetElement& elem : _magneticElements)
 	{
 		xMidElem = (elem.getIntervalX().getLeftPoint() + elem.getIntervalX().getRightPoint()) / 2;
@@ -53,6 +56,6 @@ double MagnetismDirectTask::calcMagneticIndoctionY(double x, double z)
 		coefX = 3 * x_ * z_ / r2;
 		coefZ = 3 * z_ * z_ / r2 - 1;
 		buf = elem.get_pX() * coefX + elem.get_pZ() * coefZ;
-		bx += elem.getSquare() * _mesh.getI() / 4 / PI / r3 * buf;
+		bx += elem.getSquare() * _mesh->getI() / 4 / PI / r3 * buf;
 	}
 }

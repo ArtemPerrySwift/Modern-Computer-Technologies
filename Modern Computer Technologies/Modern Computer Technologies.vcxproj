@@ -141,7 +141,10 @@
     <ClCompile Include="MagnetInfo.cpp" />
     <ClCompile Include="MagnetismDirectTask.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MatrixVectorOperations.cpp" />
     <ClCompile Include="MeshInfo.cpp" />
+    <ClCompile Include="Reciver.cpp" />
+    <ClCompile Include="ReverseTask.cpp" />
     <ClCompile Include="SplitOptions.cpp" />
     <ClCompile Include="SplittedInterval.cpp" />
   </ItemGroup>
@@ -160,7 +163,10 @@
     <ClInclude Include="MagnetElement.h" />
     <ClInclude Include="MagnetInfo.h" />
     <ClInclude Include="MagnetismDirectTask.h" />
+    <ClInclude Include="MatrixVectorOperations.h" />
     <ClInclude Include="MeshInfo.h" />
+    <ClInclude Include="Reciver.h" />
+    <ClInclude Include="ReverseTask.h" />
     <ClInclude Include="SplitOptions.h" />
     <ClInclude Include="SplittedInterval.h" />
   </ItemGroup>
