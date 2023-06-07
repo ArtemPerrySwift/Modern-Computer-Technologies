@@ -48,6 +48,7 @@ bool IntervalRef::setIntervalRef(const double& p1, const double& p2)
 		return false;
 	_leftPoint = &min(p1, p2);
 	_rightPoint = &max(p1, p2);
+	return true;
 }
 
 double IntervalRef::getLength() const

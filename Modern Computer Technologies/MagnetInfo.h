@@ -10,7 +10,7 @@ public:
 	void set_pX(double pX);
 	void set_pZ(double pZ);
 
-	int get_pX() const;
-	int get_pZ() const;
+	double get_pX() const;
+	double get_pZ() const;
 };
 

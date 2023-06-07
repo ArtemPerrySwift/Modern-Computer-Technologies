@@ -181,6 +181,7 @@
   <ItemGroup>
     <None Include="DirectTask.cfg" />
     <None Include="packages.config" />
+    <None Include="ReciversData.bin" />
     <None Include="ReverseTask.cfg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

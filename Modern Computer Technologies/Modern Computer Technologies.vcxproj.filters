@@ -152,5 +152,8 @@
     <None Include="DirectTask.cfg">
       <Filter>Файлы конфигураций</Filter>
     </None>
+    <None Include="ReciversData.bin">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
   </ItemGroup>
 </Project>

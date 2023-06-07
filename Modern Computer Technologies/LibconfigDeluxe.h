@@ -61,7 +61,7 @@ void setArrayFromConfigList(libconfig::Setting& arrSett, std::vector<T>& arr)
 	arr.reserve(arrSett.getLength());
 	try
 	{
-		for (int i = 0; i < arr.size(); i++)
+		for (int i = 0; i < arr.capacity(); i++)
 			arr.emplace_back(arrSett[i]);
 	}
 	catch (std::exception& e)

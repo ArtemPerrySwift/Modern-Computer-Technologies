@@ -25,15 +25,15 @@ int MultiplyMatrixVector(std::vector<std::vector<double>>& Matrix, std::vector <
 
 int Multiply_LLt(std::vector<std::vector<double>>& L, std::vector <std::vector<double>>& LLt)
 {
-	int A_size = L[0].size();
+	int LLt_size = L[0].size();
 
-	LLt.resize(A_size);
+	LLt.resize(LLt_size);
 	//for (int i = 0; i < L.size(); i++)
-	for (int i = 0; i < A_size; i++)
+	for (int i = 0; i < LLt_size; i++)
 	{
-		LLt[i].resize(A_size);
+		LLt[i].resize(LLt_size);
 		//for (int j = 0; j < L.size(); j++)
-		for (int j = 0; j < A_size; j++)
+		for (int j = 0; j < LLt_size; j++)
 		{
 			LLt[i][j] = 0;
 			//for (int k = 0; k < L[i].size(); k++)
