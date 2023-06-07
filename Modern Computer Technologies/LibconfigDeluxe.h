@@ -4,7 +4,7 @@
 
 libconfig::Setting& getSubSetting(libconfig::Setting& setting, std::string_view varNameInConfig);
 libconfig::Setting& getSettingFromConfig(libconfig::Config& config, std::string_view settingNameInConfig);
-libconfig::Config& getConfigFromFile(std::string_view configFileName);
+libconfig::Config& getConfigFromFile(libconfig::Config& cfg, std::string_view configFileName);
 
 template <typename T>
 void setVarFromSetting(libconfig::Setting& setting, T& var, std::string_view varNameInConfig)

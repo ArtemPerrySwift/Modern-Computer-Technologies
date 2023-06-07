@@ -11,14 +11,14 @@ class MeshInfo
 	
 	std::vector<MagnetElement> _magneticElements;
 
-	libconfig::Config& config;
+	//libconfig::Config& config;
 	double _I;
 	void checkBasePointsArr(std::vector<double>& p, std::string_view pName);
 	void splitIntervals(std::vector<SplittedInterval>& splittedIntervals, const std::vector<IntervalForSplit>& intervalsForSplit, const std::vector<double>& points);
 	void countMagneticElements(const std::vector<AreaInfo>& _area);
 public:
 	MeshInfo(libconfig::Config& config);
-	MeshInfo(std::string configFileName);
+	//MeshInfo(std::string configFileName);
 	MeshInfo(libconfig::Setting& setting);
 	MeshInfo(const std::vector<double> _x, const std::vector<double> _z, const std::vector<IntervalForSplit> _intervalsXForSplit, const std::vector<IntervalForSplit> _intervalsZForSplit, double I, const std::vector<AreaInfo> _areas);
 
