@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Файлы конфигураций">
+      <UniqueIdentifier>{194793b6-6c82-470e-8fb8-f7e5d4247359}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Area.cpp">
@@ -143,5 +146,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ReverseTask.cfg">
+      <Filter>Файлы конфигураций</Filter>
+    </None>
+    <None Include="DirectTask.cfg">
+      <Filter>Файлы конфигураций</Filter>
+    </None>
   </ItemGroup>
 </Project>

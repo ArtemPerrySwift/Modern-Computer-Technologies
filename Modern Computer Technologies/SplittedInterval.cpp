@@ -26,8 +26,8 @@ const std::vector<double>& SplittedInterval::getIntervalPoints() const
 
 void SplittedInterval::splitInterval(double p1, double p2, const IntervalForSplit& intervalForSplit)
 {
-	int n = intervalForSplit.getSplitOptions()->getIntervalsCount();
-	double q = intervalForSplit.getSplitOptions()->getSparseRatio();
+	int n = intervalForSplit.getSplitOptions().getIntervalsCount();
+	double q = intervalForSplit.getSplitOptions().getSparseRatio();
 
 	if (p1 > p2)
 	{

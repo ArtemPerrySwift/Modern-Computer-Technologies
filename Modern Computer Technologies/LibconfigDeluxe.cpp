@@ -34,9 +34,8 @@ libconfig::Setting& getSettingFromConfig(libconfig::Config& config, std::string_
 	
 }
 
-libconfig::Config& getConfigFromFile(std::string_view configFileName) // опсаное место
+libconfig::Config& getConfigFromFile(libconfig::Config& cfg, std::string_view configFileName) // опсаное место
 {
-	libconfig::Config cfg;
 	try
 	{
 		cfg.readFile(configFileName.data());

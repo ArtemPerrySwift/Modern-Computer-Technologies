@@ -34,6 +34,8 @@ double MagnetismDirectTask::calcMagneticIndoctionX(double x, double z) const
 		buf = elem.get_pX() * coefX + elem.get_pZ() * coefZ;
 		bx += elem.getSquare() * _mesh->getI() / 4 / PI / r3 * buf;
 	}
+
+	return bx;
 }
 
 double MagnetismDirectTask::calcMagneticIndoctionY(double x, double z) const
@@ -58,4 +60,6 @@ double MagnetismDirectTask::calcMagneticIndoctionY(double x, double z) const
 		buf = elem.get_pX() * coefX + elem.get_pZ() * coefZ;
 		bx += elem.getSquare() * _mesh->getI() / 4 / PI / r3 * buf;
 	}
+
+	return bx;
 }

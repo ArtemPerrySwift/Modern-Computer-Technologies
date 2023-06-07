@@ -8,10 +8,10 @@ libconfig::Config& prepareConfig(libconfig::Config& config)
 	return config;
 }
 
-MeshInfo::MeshInfo(libconfig::Config& config) : MeshInfo(getSettingFromConfig(prepareConfig(config), "Mesh")) {}
+MeshInfo::MeshInfo(libconfig::Config& config) : MeshInfo(getSettingFromConfig(config, "Mesh")) {}
 
 
-MeshInfo::MeshInfo(std::string& configFileName) : MeshInfo(getConfigFromFile(configFileName)) {}
+MeshInfo::MeshInfo(std::string configFileName) : MeshInfo(getConfigFromFile(configFileName)) {}
 
 
 void MeshInfo::checkBasePointsArr(std::vector<double>& p, std::string_view pName)
