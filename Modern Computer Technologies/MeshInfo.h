@@ -26,6 +26,7 @@ public:
 	const std::vector<SplittedInterval>& getIntervalsZ() const;
 	const std::vector<MagnetElement>& getMagneticElements() const;
 	double getI() const;
+	void writeMagneticElementsInBinaryFile(std::string_view fileName) const;
 	void setI(double I);
 
 	void change_px(double px, int elementNum);

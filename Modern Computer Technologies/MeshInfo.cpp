@@ -137,3 +137,11 @@ void MeshInfo::change_pz(double pz, int elementNum)
 		throw std::exception("Magnetic element num for changing pz cannot be larger than magnetic elements count");
 	_magneticElements[elementNum].set_pZ(pz);
 }
+
+void MeshInfo::writeMagneticElementsInBinaryFile(std::string_view fileName) const
+{
+	std::ofstream out;
+	out.open(fileName.data(), std::ios::binary);
+	for (const MagnetElement& element : _magneticElements)
+		element.writeInBinaryFile(out);
+}
