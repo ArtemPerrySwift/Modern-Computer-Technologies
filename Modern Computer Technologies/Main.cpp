@@ -48,8 +48,8 @@ void writeBInConsole(double left, double right, int nRecivers, const MagnetismDi
 }
 
 
-	void makeDirectTask(const char* cfgFileName, double left, double right, int nRecivers, const char* reciversFileName)
-	{
+void makeDirectTask(const char* cfgFileName, double left, double right, int nRecivers, const char* reciversFileName)
+{
 		libconfig::Config cfg;
 		getConfigFromFile(cfg, cfgFileName);
 		MeshInfo mesh(cfg);
@@ -82,10 +82,10 @@ void writeBInConsole(double left, double right, int nRecivers, const MagnetismDi
 		out.write((char*)&bx, sizeof(bx));
 		out.write((char*)&bz, sizeof(bz));
 		out.close();
-	}
+}
 
-	void makeReverseTask(const char* cfgFileName, const char* reciversFileName, const char* ansFileName, double alpha)
-	{
+void makeReverseTask(const char* cfgFileName, const char* reciversFileName, const char* ansFileName, double alpha)
+{
 		libconfig::Config cfgRev;
 		getConfigFromFile(cfgRev, cfgFileName);
 		MeshInfo meshRev(cfgRev);
@@ -94,7 +94,7 @@ void writeBInConsole(double left, double right, int nRecivers, const MagnetismDi
 		Reciver::readRecivers(recivers, reciversFileName);
 		reverseTask.countSolution(recivers, meshRev);
 		meshRev.writeMagneticElementsInBinaryFile(ansFileName);
-	}
+}
 //int main()
 //{
 //	libconfig::Config cfg;
