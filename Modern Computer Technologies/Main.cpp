@@ -47,8 +47,8 @@ void writeBInConsole(double left, double right, int nRecivers, const MagnetismDi
 	std::cout << x << " " << dirctTask.calcMagneticIndoctionX(x, z) << " " << dirctTask.calcMagneticIndoctionY(x, z) << std::endl;
 }
 
-extern "C" {
-	_declspec(dllexport) void makeDirectTask(const char* cfgFileName, double left, double right, int nRecivers, const char* reciversFileName)
+
+	void makeDirectTask(const char* cfgFileName, double left, double right, int nRecivers, const char* reciversFileName)
 	{
 		libconfig::Config cfg;
 		getConfigFromFile(cfg, cfgFileName);
@@ -84,7 +84,7 @@ extern "C" {
 		out.close();
 	}
 
-	_declspec(dllexport) void makeReverseTask(const char* cfgFileName, const char* reciversFileName, const char* ansFileName, double alpha)
+	void makeReverseTask(const char* cfgFileName, const char* reciversFileName, const char* ansFileName, double alpha)
 	{
 		libconfig::Config cfgRev;
 		getConfigFromFile(cfgRev, cfgFileName);
@@ -95,7 +95,6 @@ extern "C" {
 		reverseTask.countSolution(recivers, meshRev);
 		meshRev.writeMagneticElementsInBinaryFile(ansFileName);
 	}
-}
 //int main()
 //{
 //	libconfig::Config cfg;
