@@ -149,6 +149,7 @@
     <ClCompile Include="IntervalXYZ.cpp" />
     <ClCompile Include="LibconfigDeluxe.cpp" />
     <ClCompile Include="MagnetElement.cpp" />
+    <ClCompile Include="MagnetIndocFunctor.cpp" />
     <ClCompile Include="MagnetInfo.cpp" />
     <ClCompile Include="MagnetismDirectTask.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -162,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="Area.h" />
     <ClInclude Include="AreaInfo.h" />
+    <ClInclude Include="DEFINES.h" />
     <ClInclude Include="DimenshionTemlate.h" />
     <ClInclude Include="Faces.h" />
     <ClInclude Include="FiniteElement.h" />
@@ -174,6 +176,7 @@
     <ClInclude Include="IntervalsXYZ.h" />
     <ClInclude Include="LibconfigDeluxe.h" />
     <ClInclude Include="MagnetElement.h" />
+    <ClInclude Include="MagnetIndocFunctor.h" />
     <ClInclude Include="MagnetInfo.h" />
     <ClInclude Include="MagnetismDirectTask.h" />
     <ClInclude Include="MatrixVectorOperations.h" />

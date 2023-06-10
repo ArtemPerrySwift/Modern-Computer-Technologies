@@ -99,7 +99,7 @@ void makeReverseTask(const char* cfgFileName, const char* reciversFileName, cons
 }
 int main()
 {
-	/*
+	
 	libconfig::Config cfg;
 	getConfigFromFile(cfg, "DirectTask.cfg");
 	MeshInfo mesh(cfg);
@@ -118,20 +118,20 @@ int main()
 	double err = 0;
 	for (const Reciver& rec : recivers)
 	{
-		std::cout << rec.getX() << " " << rec.getBx() << " " << directTaskcheck.calcMagneticIndoctionX(rec.getX(), rec.getZ()) << std::endl;
+		std::cout << rec.getX() << "\t" << rec.getBx() << "\t" << directTaskcheck.calcMagneticIndoctionX(rec.getX(), rec.getZ()) << std::endl;
 		err += pow((rec.getBx() - directTaskcheck.calcMagneticIndoctionX(rec.getX(), rec.getZ())), 2);
 	}
 	
 	std::cout << "Error = " << err << std::endl;
-	*/
-	GausseIntegr integr;
-	double integral = integr.itegrate(0, 1, 0, 1, [](double x, double y) {return x*x + 8 * y*y; });
-	std::cout << integral;
+
+	
+	//double integral = GausseIntegr::integrate(0, 1, 0, 1, [](double x, double y) {return x*x + 8 * y * y; });
+	//std::cout << integral;
 	//meshRev.writeMagneticElementsInBinaryFile("Ans.bin");
-	//for (const MagnetElement& elem : meshRev.getMagneticElements())
-	//{
-	//	std::cout << elem.get_pX() << " " << elem.get_pZ() << std::endl;
-	//}
+	for (const MagnetElement& elem : meshRev.getMagneticElements())
+	{
+		std::cout << elem.get_pX() << " " << elem.get_pZ() << std::endl;
+	}
 	//makeDirectTask("DirectTask.cfg", 0, 1000, 500, "ReciversData.bin");
 	return 0;
 }
