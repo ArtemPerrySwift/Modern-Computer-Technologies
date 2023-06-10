@@ -1,5 +1,6 @@
 #include "ReverseTask.h"
 #include <iostream>
+#include "GausseIntegr.h"
 
 void writeInBinaryFileRecivers(double left, double right, int nRecivers, const MagnetismDirectTask& dirctTask, std::string outFileName)
 {
@@ -82,6 +83,7 @@ void makeDirectTask(const char* cfgFileName, double left, double right, int nRec
 		out.write((char*)&bx, sizeof(bx));
 		out.write((char*)&bz, sizeof(bz));
 		out.close();
+		std::cout << "Here";
 }
 
 void makeReverseTask(const char* cfgFileName, const char* reciversFileName, const char* ansFileName, double alpha)
@@ -95,25 +97,41 @@ void makeReverseTask(const char* cfgFileName, const char* reciversFileName, cons
 		reverseTask.countSolution(recivers, meshRev);
 		meshRev.writeMagneticElementsInBinaryFile(ansFileName);
 }
-//int main()
-//{
-//	libconfig::Config cfg;
-//	getConfigFromFile(cfg, "DirectTask.cfg");
-//	MeshInfo mesh(cfg);
-//	MagnetismDirectTask directTask(mesh);
-//	writeInBinaryFileRecivers(-500, 500, 500, directTask, "ReciversData.bin");
-//	writeBInConsole(-500, 500, 500, directTask);
-//	libconfig::Config cfgRev;
-//	getConfigFromFile(cfgRev, "ReverseTask.cfg");
-//	MeshInfo meshRev(cfgRev);
-//	ReverseTask reverseTask(0);
-//	std::vector<Reciver> recivers;
-//	Reciver::readRecivers(recivers, "ReciversData.bin");
-//	reverseTask.countSolution(recivers, meshRev);
-//	for (const MagnetElement& elem : meshRev.getMagneticElements())
-//	{
-//		std::cout << elem.get_pX() << " " << elem.get_pZ() << std::endl;
-//	}
-//	
-//	return 0;
-//}
+int main()
+{
+	/*
+	libconfig::Config cfg;
+	getConfigFromFile(cfg, "DirectTask.cfg");
+	MeshInfo mesh(cfg);
+	MagnetismDirectTask directTask(mesh);
+	writeInBinaryFileRecivers(-500, 500, 500, directTask, "ReciversData.bin");
+	//riteBInConsole(-500, 500, 500, directTask);
+	libconfig::Config cfgRev;
+	getConfigFromFile(cfgRev, "ReverseTask.cfg");
+	MeshInfo meshRev(cfgRev);
+	ReverseTask reverseTask(0);
+	std::vector<Reciver> recivers;
+	Reciver::readRecivers(recivers, "ReciversData.bin");
+	reverseTask.countSolution(recivers, meshRev);
+	MagnetismDirectTask directTaskcheck(meshRev);
+
+	double err = 0;
+	for (const Reciver& rec : recivers)
+	{
+		std::cout << rec.getX() << " " << rec.getBx() << " " << directTaskcheck.calcMagneticIndoctionX(rec.getX(), rec.getZ()) << std::endl;
+		err += pow((rec.getBx() - directTaskcheck.calcMagneticIndoctionX(rec.getX(), rec.getZ())), 2);
+	}
+	
+	std::cout << "Error = " << err << std::endl;
+	*/
+	GausseIntegr integr;
+	double integral = integr.itegrate(0, 1, 0, 1, [](double x, double y) {return x*x + 8 * y*y; });
+	std::cout << integral;
+	//meshRev.writeMagneticElementsInBinaryFile("Ans.bin");
+	//for (const MagnetElement& elem : meshRev.getMagneticElements())
+	//{
+	//	std::cout << elem.get_pX() << " " << elem.get_pZ() << std::endl;
+	//}
+	//makeDirectTask("DirectTask.cfg", 0, 1000, 500, "ReciversData.bin");
+	return 0;
+}
