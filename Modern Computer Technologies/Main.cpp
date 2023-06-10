@@ -47,7 +47,17 @@ void writeBInConsole(double left, double right, int nRecivers, const MagnetismDi
 	x = right;
 	std::cout << x << " " << dirctTask.calcMagneticIndoctionX(x, z) << " " << dirctTask.calcMagneticIndoctionY(x, z) << std::endl;
 }
-void makeDirectTask(const char* cfgFileName, double left, double right, int nRecivers, const char* meshFileName, const char* reciversFileName)
+
+void writeDirectTaskMeshInBinaryFile(const char* cfgFileName, const char* meshFileName)
+{
+	libconfig::Config cfg;
+	getConfigFromFile(cfg, cfgFileName);
+	MeshInfo mesh(cfg);
+	MagnetismDirectTask directTask(mesh);
+	mesh.writeMagneticElementsInBinaryFile(meshFileName);
+}
+
+void makeDirectTask(const char* cfgFileName, double left, double right, int nRecivers, const char* reciversFileName)
 {
 	libconfig::Config cfg;
 	getConfigFromFile(cfg, cfgFileName);
@@ -88,11 +98,9 @@ void makeDirectTask(const char* cfgFileName, double left, double right, int nRec
 	out.write((char*)&bx, sizeof(bx));
 	out.write((char*)&bz, sizeof(bz));
 	out.close();
-
-	mesh.writeMagneticElementsInBinaryFile(meshFileName);
 }
 
-void makeDirectTask(const char* cfgFileName, double xLeft, double xRight, double zLeft, double zRight, int nRecivers, const char* meshFileName, const char* reciversFileName)
+void makeDirectTask(const char* cfgFileName, double xLeft, double xRight, double zLeft, double zRight, int nRecivers, const char* reciversFileName)
 {
 	libconfig::Config cfg;
 	getConfigFromFile(cfg, cfgFileName);
@@ -141,8 +149,6 @@ void makeDirectTask(const char* cfgFileName, double xLeft, double xRight, double
 	out.write((char*)&bz, sizeof(bz));
 
 	out.close();
-
-	mesh.writeMagneticElementsInBinaryFile(meshFileName);
 }
 
 void makeReverseTask(const char* cfgFileName, const char* reciversFileName, const char* ansFileName, double alpha)
