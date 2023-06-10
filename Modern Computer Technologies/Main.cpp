@@ -47,55 +47,109 @@ void writeBInConsole(double left, double right, int nRecivers, const MagnetismDi
 	x = right;
 	std::cout << x << " " << dirctTask.calcMagneticIndoctionX(x, z) << " " << dirctTask.calcMagneticIndoctionY(x, z) << std::endl;
 }
-
-
 void makeDirectTask(const char* cfgFileName, double left, double right, int nRecivers, const char* reciversFileName)
 {
-		libconfig::Config cfg;
-		getConfigFromFile(cfg, cfgFileName);
-		MeshInfo mesh(cfg);
-		MagnetismDirectTask directTask(mesh);
-		if (left > right)
-			std::swap(left, right);
-		int nIntervals = nRecivers - 1;
-		double h = (right - left) / nIntervals;
-		std::ofstream out;
-		out.open(reciversFileName, std::ios::binary);
-		out.write((char*)&nRecivers, sizeof(nRecivers));
-		double x;
-		double z = 0;
-		double bx, bz;
-		for (int i = 0; i < nIntervals; i++)
-		{
-			x = left + i * h;
-			bx = directTask.calcMagneticIndoctionX(x, z);
-			bz = directTask.calcMagneticIndoctionY(x, z);
-			out.write((char*)&x, sizeof(x));
-			out.write((char*)&z, sizeof(z));
-			out.write((char*)&bx, sizeof(bx));
-			out.write((char*)&bz, sizeof(bz));
-		}
-		x = right;
+	libconfig::Config cfg;
+	getConfigFromFile(cfg, cfgFileName);
+	MeshInfo mesh(cfg);
+	MagnetismDirectTask directTask(mesh);
+	if (left > right)
+		std::swap(left, right);
+	int nIntervals = nRecivers - 1;
+	double h = (right - left) / nIntervals;
+	std::ofstream out;
+	out.open(reciversFileName, std::ios::binary);
+	out.write((char*)&nRecivers, sizeof(nRecivers));
+	double x;
+	double z = 0;
+	double bx, bz;
+	for (int i = 0; i < nIntervals; i++)
+	{
+		x = left + i * h;
 		bx = directTask.calcMagneticIndoctionX(x, z);
 		bz = directTask.calcMagneticIndoctionY(x, z);
 		out.write((char*)&x, sizeof(x));
 		out.write((char*)&z, sizeof(z));
 		out.write((char*)&bx, sizeof(bx));
 		out.write((char*)&bz, sizeof(bz));
-		out.close();
-		std::cout << "Here";
+	}
+	x = right;
+	bx = directTask.calcMagneticIndoctionX(x, z);
+	bz = directTask.calcMagneticIndoctionY(x, z);
+	out.write((char*)&x, sizeof(x));
+	out.write((char*)&z, sizeof(z));
+	out.write((char*)&bx, sizeof(bx));
+	out.write((char*)&bz, sizeof(bz));
+	out.close();
+	std::cout << "Here";
+}
+
+void makeDirectTask(const char* cfgFileName, double xLeft, double xRight, double zLeft, double zRight, int nRecivers, const char* reciversFileName)
+{
+	libconfig::Config cfg;
+	getConfigFromFile(cfg, cfgFileName);
+	MeshInfo mesh(cfg);
+
+	MagnetismDirectTask directTask(mesh);
+
+	if (xLeft > xRight)
+		std::swap(xLeft, xRight);
+
+	if (zLeft > zRight)
+		std::swap(zLeft, zRight);
+
+	int nIntervals = nRecivers - 1;
+
+	double hx = (xRight - xLeft) / nIntervals;
+	double hz = (zRight - zLeft) / nIntervals;
+
+	std::ofstream out;
+	out.open(reciversFileName, std::ios::binary);
+	out.write((char*)&nRecivers, sizeof(nRecivers));
+
+	double x, z;
+	double bx, bz;
+
+	for (int i = 0; i < nIntervals; i++)
+	{
+		x = xLeft + i * hx;
+		z = xLeft + i * hz;
+		bx = directTask.calcMagneticIndoctionX(x, z);
+		bz = directTask.calcMagneticIndoctionY(x, z);
+		out.write((char*)&x, sizeof(x));
+		out.write((char*)&z, sizeof(z));
+		out.write((char*)&bx, sizeof(bx));
+		out.write((char*)&bz, sizeof(bz));
+	}
+	x = xRight;
+	z = zRight;
+
+	bx = directTask.calcMagneticIndoctionX(x, z);
+	bz = directTask.calcMagneticIndoctionY(x, z);
+
+	out.write((char*)&x, sizeof(x));
+	out.write((char*)&z, sizeof(z));
+	out.write((char*)&bx, sizeof(bx));
+	out.write((char*)&bz, sizeof(bz));
+
+	out.close();
 }
 
 void makeReverseTask(const char* cfgFileName, const char* reciversFileName, const char* ansFileName, double alpha)
 {
-		libconfig::Config cfgRev;
-		getConfigFromFile(cfgRev, cfgFileName);
-		MeshInfo meshRev(cfgRev);
-		ReverseTask reverseTask(alpha);
-		std::vector<Reciver> recivers;
-		Reciver::readRecivers(recivers, reciversFileName);
-		reverseTask.countSolution(recivers, meshRev);
-		meshRev.writeMagneticElementsInBinaryFile(ansFileName);
+	libconfig::Config cfgRev;
+	getConfigFromFile(cfgRev, cfgFileName);
+
+	MeshInfo meshRev(cfgRev);
+
+	ReverseTask reverseTask(alpha);
+
+	std::vector<Reciver> recivers;
+	Reciver::readRecivers(recivers, reciversFileName);
+
+	reverseTask.countSolution(recivers, meshRev);
+
+	meshRev.writeMagneticElementsInBinaryFile(ansFileName);
 }
 int main()
 {
